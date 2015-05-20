@@ -56,14 +56,14 @@ $( document ).on("pagecreate", ".jqm-calendar", function() {
 });
 
 $(document).on("pageshow", '#page_mail_list', function() {
-    if (window.storePosition.topCoordinate !== null) {
-        $.mobile.silentScroll(window.storePosition.topCoordinate);
-    }
+  if (window.storePosition.topCoordinate !== null) {
+    $.mobile.silentScroll(window.storePosition.topCoordinate);
+  }
 });
 
-$(document).on("click", '#messagelist a', function() {
-	e.stopPropagation();
-    return false;
+$(document).on("click", '#messagelist a', function(e) {
+	e.preventDefault();
+  return false;
 });
 
 
@@ -118,12 +118,14 @@ $(document).on("pageshow", ".jqm-message", function() {
 	rcmail.env.uid = window.current_uid;
 	rcmail.env.action = 'show';
 	
-    // Gestion des labels
-	jQuery.each(rcmail.env.messages[window.current_uid].flags.tb_labels, function(idx, val)
-		{
-			rcm_tb_label_flag_msgs([-1,], val);
-		}
-	);
+  // Gestion des labels
+	if (rcmail.env.messages[window.current_uid].flags) {
+	  jQuery.each(rcmail.env.messages[window.current_uid].flags.tb_labels, function(idx, val)
+      {
+        rcm_tb_label_flag_msgs([-1,], val);
+      }
+    );
+	}
 	
 	var message_commands = ['show', 'reply', 'reply-all', 'reply-list',
 	                             'move', 'copy', 'delete', 'open', 'mark', 'edit', 'viewsource',
@@ -192,6 +194,7 @@ $(document).on("pagecreate", ".jqm-message", function() {
 			if (window.previous_page == 'page_mail_list') {
 				window.previous_page = 'current_page';
 				$.mobile.back();
+				$.mobile.pageContainer.pagecontainer("change", $("#page_mail_list"));
 			}
 			else {
 				window.previous_page = 'current_page';
@@ -556,14 +559,12 @@ if (window.rcmail) {
 				window.storePosition.topCoordinate =  $(window).scrollTop();
 				window.previous_page = 'page_mail_list';
 				p.msglist_dbl_click_mobile(o);
-				o.preventDefault();
 			});
 			rcmail.message_list.addEventListener('dblclick', function(o) {
 				window.clearTimeout(window.show_timer);
 				window.storePosition.topCoordinate =  $(window).scrollTop();
 				window.previous_page = 'page_mail_list';
 				p.msglist_dbl_click_mobile(o);
-				o.preventDefault();
 			});
 		}
 	  	// contact list
@@ -582,7 +583,7 @@ if (window.rcmail) {
 	rcmail.addEventListener('responseafterlist', function(evt) {
 		  current_page_scroll = rcmail.env.current_page + 1;
 		  rcmail.env.current_page = 1;
-		  rcmail.http_post('plugin.set_current_page', {});
+		  rcmail.http_post('mobile.set_current_page', {});
 	  });
 }
 
@@ -670,7 +671,7 @@ rcube_webmail.prototype.show_message_mobile = function(id, params)
 {
   if (!id)
     return;
-  
+    
   // Ajout de la class selected
   $('#messagelist li').removeClass('selected');
   $('#messagelist li#rcmrow' + id).addClass('selected');

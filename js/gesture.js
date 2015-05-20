@@ -33,7 +33,7 @@ var startX,
 	swipeMessage,
 	swipe_timer,
 	tapTimer,
-    isTapHold;
+  isTapHold;
 
 function getCoord(e, c) {
 	return /touch/.test(e.type) ? (e.originalEvent || e).changedTouches[0]['page' + c] : e['page' + c];
@@ -66,13 +66,13 @@ $(document).on("touchstart", "#mail-list-left-panel #messagelist li", function(e
 	if (Math.abs(getCoord(ev, 'X') - startX) < 20 && Math.abs(getCoord(ev, 'Y') - startY) < 20) {
 	    // Prevent emulated mouse events
 	    ev.preventDefault();
-	    open_message_from_left_panel($(this).attr('id').replace('rcmrow', ''))
+	    open_message_from_left_panel($(document.getElementById($(this).attr('id'))).data('uid'));
 	}
 	setTap();
 }).on("click", "#mail-list-left-panel #messagelist li", function(ev) {
 	if (!tap) {
 	    // If handler was not called on touchend, call it on click;
-		open_message_from_left_panel($(this).attr('id').replace('rcmrow', ''))
+		open_message_from_left_panel($(document.getElementById($(this).attr('id'))).data('uid'));
 	}
 	ev.preventDefault();
 });

@@ -68,7 +68,7 @@ class mobile extends rcube_plugin {
     $this->add_texts('localization/', true);
 
     // Add the switch to desktop skin button
-    $this->add_button(array('task' => 'switch_skin','command' => 'switch_desktop','class' => 'button-switch_desktop ui-link ui-btn ui-shadow ui-corner-all ui-icon-home ui-btn-icon-left','classsel' => 'button-switch_desktop button-selected ui-link ui-btn ui-shadow ui-corner-all ui-icon-home ui-btn-icon-left','innerclass' => 'button-inner','label' => 'mobile.desktop'), 'taskbar_mobile');
+    $this->add_button(array('task' => 'switch_skin','data-ajax' => 'false', 'command' => 'switch_desktop','class' => 'button-switch_desktop ui-link ui-btn ui-corner-all ui-icon-desktop ui-btn-icon-left','innerclass' => 'button-inner','label' => 'mobile.desktop'), 'taskbar_mobile');
     // Add the switch to mobile skin button
     $this->add_button(array('task' => 'switch_skin','command' => 'switch_mobile','class' => 'about-link','classsel' => 'about-link button-selected','innerclass' => 'button-inner','label' => 'mobile.mobile'), 'topline-left');
     $this->register_action('switch_mobile', array($this,'switch_mobile'));
@@ -102,7 +102,7 @@ class mobile extends rcube_plugin {
     // Set env ismobile
     $this->rc->output->set_env('ismobile', $this->isMobile());
 
-    if ($this->isMobile()) {      
+    if ($this->isMobile()) {
       if (in_array($this->rc->task, $this->rc->config->get("mobile_tasks"))) {
         // Include mobile.js script
         $this->include_script('js/mobile.js');
@@ -118,7 +118,15 @@ class mobile extends rcube_plugin {
         // Generate message list
         $this->add_hook('template_object_messages', array($this,'object_messages'));
         $this->add_hook('messages_list', array($this,'messages_list'));
-        
+
+        // Folder list
+        $this->add_hook('folder_create', array($this,'folder_create'));
+        $this->add_hook('folder_update', array($this,'folder_update'));
+        $this->add_hook('folder_delete', array($this,'folder_delete'));
+
+        // User photo
+        // $this->add_hook('template_object_userphoto', array($this,'userphoto'));
+
         // Config hook
         $this->add_hook('config_get', array($this,'config_get'));
 
@@ -135,6 +143,11 @@ class mobile extends rcube_plugin {
             // Redirect to avoid contact creation error
             header('Location: ?_task=addressbook&_source=' . rcube_utils::get_input_value('_orig_source', rcube_utils::INPUT_GET));
           }
+        }
+        elseif ($this->rc->task == 'settings'
+            && $this->rc->action == 'edit-folder') {
+          // add some labels to client
+          $this->rc->output->add_label('deletefolderconfirm');
         }
       }
     }
@@ -177,6 +190,60 @@ class mobile extends rcube_plugin {
         $message->mobile_class = $this->get_mobile_class($message->mobile_text);
       }
     }
+    return $args;
+  }
+
+  /**
+   * Reload page if create folder
+   *
+   * @param array $args
+   * @return array
+   */
+  public function folder_create($args) {
+    $folder = $args['record'];
+    if ($this->rc->storage->create_folder($folder['name'], $folder['subscribe'])) {
+      $this->rc->output->show_message('foldercreated', 'confirmation');
+    }
+    $args['abort'] = true;
+    return $args;
+  }
+
+  /**
+   * Reload page if delete folder
+   *
+   * @param array $args
+   * @return array
+   */
+  public function folder_update($args) {
+    $folder = $args['record'];
+    if ($this->rc->task == 'settings' && $folder['oldname'] != $folder['name']) {
+      $updated = $this->rc->storage->rename_folder($folder['oldname'], $folder['name']);
+      $args['abort'] = true;
+      if ($updated) {
+        $this->rc->output->show_message('folderupdated', 'confirmation');
+        $this->rc->output->set_env('folder', $folder['name']);
+      }
+    }
+    return $args;
+  }
+
+  /**
+   * Reload page if rename folder
+   *
+   * @param array $args
+   * @return array
+   */
+  public function folder_delete($args) {
+    $deleted = $this->rc->storage->delete_folder($args['name']);
+    // #1488692: update session
+    if ($deleted && $_SESSION['mbox'] === $mbox) {
+      $this->rc->session->remove('mbox');
+    }
+    if ($deleted) {
+       $this->rc->output->show_message('folderdeleted', 'confirmation');
+       $this->rc->output->send();
+    }
+    $args['abort'] = true;
     return $args;
   }
 
@@ -231,7 +298,7 @@ class mobile extends rcube_plugin {
         $args['result'] = 'melanie2_larry_mobile';
         break;
       case 'autoexpand_threads' :
-        $args['result'] = 2;
+        $args['result'] = 1;
         break;
       case 'ismobile' :
         $args['result'] = $this->isMobile();
@@ -246,6 +313,20 @@ class mobile extends rcube_plugin {
     return $args;
   }
 
+  /**
+   * Show user photo
+   *
+   * @param array $attrib
+   * @return string
+   */
+  function userphoto($args) {
+    $photo_img = $this->rc->url(array('_task' => 'addressbook','_action' => 'photo','_email' => $this->current_username()));
+
+    $args['content'] = html::img(array('src' => $photo_img));
+
+    return $args;
+  }
+  
   /**
    * Switch to the desktop skin
    */

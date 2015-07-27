@@ -64,7 +64,7 @@ $(document).on("pagecreate", ".jqm-calendar", function() {
 });
 
 $(document).on("pageshow", ".jqm-compose", function() {
-  $('#compose-subject').click(function () {
+  $('#compose-subject').click(function() {
     $('#compose-subject input').focus();
   });
 });
@@ -112,19 +112,23 @@ $(document)
       // Masquer le back list et le remplacer par le back jquery mobile
       $('.jqm_message_list_group').show();
       $('.rc_message_back').hide();
-      
+
       // Show/hide nav buttons
       var next_row = rcmail.message_list.get_next_row();
       var prev_row = rcmail.message_list.get_prev_row();
-      if (!next_row) { 
+      if (!next_row) {
         $('.jqm_message_next').hide();
         load_next_page();
       }
-      else { 
-        $('.jqm_message_next').show();       
+      else {
+        $('.jqm_message_next').show();
       }
-      if (!prev_row) { $('.jqm_message_previous').hide(); }
-      else { $('.jqm_message_previous').show(); }
+      if (!prev_row) {
+        $('.jqm_message_previous').hide();
+      }
+      else {
+        $('.jqm_message_previous').show();
+      }
 
       rcmail.env.uid = window.current_uid;
       rcmail.env.action = 'show';
@@ -150,7 +154,7 @@ $(document)
       rcmail.addEventListener('responseafterlist', function(evt) {
         var next_row = rcmail.message_list.get_next_row();
         if (next_row) {
-          $('.jqm_message_next').show();    
+          $('.jqm_message_next').show();
         }
       });
       rcmail
@@ -168,8 +172,8 @@ $(document)
                 return;
               }
               if ($.mobile.pageContainer.pagecontainer("getActivePage")[0].id != 'page_mail_list') {
-                  $.mobile.pageContainer
-                      .pagecontainer("change", $("#page_mail_list"));
+                $.mobile.pageContainer
+                    .pagecontainer("change", $("#page_mail_list"));
               }
             }
           });
@@ -215,7 +219,8 @@ $(document).on("pagecreate", ".jqm-message", function() {
       evt.preventDefault();
     });
     $('.jqm_message_previous').click(function(evt) {
-      var uid = rcmail.message_list.get_row_uid(rcmail.message_list.get_prev_row());
+      var uid = rcmail.message_list.get_row_uid(rcmail.message_list
+          .get_prev_row());
       window.current_uid = uid;
       rcmail.message_list.last_selected = uid;
       window.previous_page = 'current_page';
@@ -226,7 +231,8 @@ $(document).on("pagecreate", ".jqm-message", function() {
       evt.preventDefault();
     });
     $('.jqm_message_next').click(function(evt) {
-      var uid = rcmail.message_list.get_row_uid(rcmail.message_list.get_next_row());
+      var uid = rcmail.message_list.get_row_uid(rcmail.message_list
+          .get_next_row());
       window.current_uid = uid;
       rcmail.message_list.last_selected = uid;
       window.previous_page = 'current_page';
@@ -342,9 +348,52 @@ $(document).ready(function() {
   $('#calendarslist ul').attr('data-role', 'listview');
   $('#calendarslist div.treetoggle').hide();
 
+  // Settings list
+  $('#settingslist_mobile').attr('data-role', 'listview');
+  $('#settingslist_mobile a').attr('data-ajax', 'false');
+  $('#settingslist_mobile ul').attr('data-role', 'listview');
+  $('#settingslist_mobile ul').show();
+  $('#settingslist_mobile > li').attr('data-icon', 'user');
+  $('#settingslist_mobile li li').attr('data-icon', 'false');
+  $('#settingslist_mobile div.treetoggle').hide();
+
+  // Folder subscription list
+  $('#subscription-table').attr('data-role', 'listview');
+  $('#subscription-table ul').attr('data-role', 'listview');
+  $('#subscription-table ul').show();
+  $('#subscription-table li').attr('data-icon', 'carat-r');
+  $('#subscription-table div.treetoggle').hide();
+
   if ($("#eventedit").length) {
     $("#eventedit .edit-alarm-type").selectmenu();
     // $("#eventedit .edit-alarm-type").selectmenu("refresh", true);
+  }
+  
+  // Order icons
+  if ($('#apps-right-panel .button-switch_desktop').length) {
+    var html = $('#apps-right-panel .button-switch_desktop').get(0).outerHTML;
+    $('#apps-right-panel .button-switch_desktop').remove();
+    $('#apps-right-panel .button-logout').before(html);
+  }
+  if ($('#apps-right-panel .button-calendar').length) {
+    var html = $('#apps-right-panel .button-calendar').get(0).outerHTML;
+    $('#apps-right-panel .button-calendar').remove();
+    $('#apps-right-panel .button-settings').before(html);
+  }
+  if ($('#apps-right-panel .button-melanie2_moncompte').length) {
+    var html = $('#apps-right-panel .button-melanie2_moncompte').get(0).outerHTML;
+    $('#apps-right-panel .button-melanie2_moncompte').remove();
+    $('#apps-right-panel .button-settings').before(html);
+  }
+  if ($('#apps-right-panel .button-melanie2_sondage').length) {
+    var html = $('#apps-right-panel .button-melanie2_sondage').get(0).outerHTML;
+    $('#apps-right-panel .button-melanie2_sondage').remove();
+    $('#apps-right-panel .button-settings').before(html);
+  }
+  if ($('#apps-right-panel .button-melanie2_jabber').length) {
+    var html = $('#apps-right-panel .button-melanie2_jabber').get(0).outerHTML;
+    $('#apps-right-panel .button-melanie2_jabber').remove();
+    $('#apps-right-panel .button-settings').before(html);
   }
 });
 
@@ -363,6 +412,7 @@ function add_mobile_class(uid, row) {
 $(document).bind("mobileinit", function() {
   // Mise en cache des données
   $.mobile.page.prototype.options.domCache = false;
+  $.mobile.ajaxLinksEnabled = false;
   // Disable history
   // See https://github.com/jquery/jquery-mobile/issues/5465
   // $.mobile.hashListeningEnabled = false;
@@ -376,8 +426,7 @@ $(document).bind("mobileinit", function() {
 function load_next_page() {
   // Affichage de la page suivante au bas de la page
   var page = window.current_page_scroll;
-  if (page > 0 && page <= rcmail.env.pagecount
-      && !window.page_loading[page]) {
+  if (page > 0 && page <= rcmail.env.pagecount && !window.page_loading[page]) {
     window.page_loading[page] = true;
     var lock = rcmail.set_busy(true, 'loading');
     var post_data = {};
@@ -406,14 +455,6 @@ if (window.rcmail) {
           evt.stopPropagation();
           evt.preventDefault();
         });
-        // Changement de skin mobile vers desktop
-        // Timer pour la redirection, jquery mobile semble bloquer la
-        // redirection classique
-        $('.button-switch_desktop').click(function() {
-          setTimeout(function() {
-            window.location = '?_task=mail';
-          }, 3000);
-        });
         // Redirection automatique après la création d'un contact
         // Problème lié au fait qu'en skin mobile on n'affiche pas le contact et
         // la liste en même temps
@@ -423,6 +464,12 @@ if (window.rcmail) {
               + window.location.href.split('?_task=addressbook&_orig_source=')
                   .pop();
         }
+        // Même problème pour l'édition des dossiers
+        // if
+        // (window.location.href.indexOf('?_task=settings&_action=edit-folder&_mbox=')
+        // != -1) {
+        // window.location = '?_task=settings&_action=folders';
+        // }
 
         if (rcmail.env.task == 'mail'
             && (!rcmail.env.action || rcmail.env.action == "")) {
@@ -455,7 +502,7 @@ if (window.rcmail) {
             $('.jqm-mail-search-header').show();
             $('.jqm-mail-search-header input').focus();
           });
-          
+
           // Messages buttons
           $('.jqm-mail-cancel-buttons').click(function() {
             $('.jqm-mail-header').show();
@@ -477,11 +524,23 @@ if (window.rcmail) {
               $('.jqm-mail-more-buttons-header').hide();
             }
           });
+          
+          $('.jqm-mail-more-buttons-header li').each(function() {
+            if ($(this).find('a').hasClass('filterlink')) {
+              $(this).find('a').addClass('ui-link ui-btn ui-corner-all ui-icon-filter ui-btn-icon-notext');
+              $('.jqm-mail-more-buttons-header .ui-controlgroup-controls .move').before($(this).html());  
+            }
+            $(this).remove();
+          });
+          
+          $(document).on('click', '.jqm-mail-more-buttons-header a.filterlink', function() {
+            window.location.href = rcmail.env.comm_path+'&_action=plugin.managesieve-action&_framed=1';
+          });
 
           // Récupérer le focus sur le search box
           $('#quicksearchbox').click(function() {
             $('#quicksearchbox').focus();
-          });                   
+          });
 
           $(document)
               .scroll(function() {
@@ -634,7 +693,7 @@ if (window.rcmail) {
         else if (rcmail.env.task == 'addressbook'
             && rcmail.env.action == 'edit') {
           $("select.addfieldmenu").change(function() {
-            $('#contacttabs').trigger("create")
+            $('#contacttabs').trigger("create");
           });
           $('.button_upload_photo').click(function() {
             $("#upload-popup").popup('close');
@@ -667,6 +726,27 @@ if (window.rcmail) {
                 break;
               }
             }
+          });
+        }
+        else if (rcmail.env.task == 'settings'
+            && rcmail.env.action == 'edit-folder') {
+          rcmail.env.mailbox = rcmail.env.folder;
+          rcmail.enable_command('delete-folder', true);
+        }
+        else if (rcmail.env.task == 'settings'
+            && rcmail.env.action == 'plugin.managesieve-action') {
+          $('.boxcontent').trigger("create");
+          rcmail
+              .addEventListener('responseafterplugin.managesieve-action', function(
+                  evt) {
+                $('.boxcontent').trigger("create");
+              });
+        }
+        else if (rcmail.env.task == 'settings'
+            && rcmail.env.action == 'plugin.managesieve') {
+          $(document).on('click', 'table#filterslist tr', function() {
+            var id = rcmail.filters_list.get_row_uid($(this).get(0));
+            window.location.href =  rcmail.env.comm_path + '&_action=plugin.managesieve-action&_framed=1&_fid=' + id;
           });
         }
         // message list
@@ -772,7 +852,7 @@ if (window.rcmail) {
                 window.clearTimeout(window.show_timer);
                 window.storePosition.topCoordinate = $(window).scrollTop();
                 window.previous_page = 'page_mail_list';
-                
+
                 this.clear_selection();
 
                 window.current_uid = id;
@@ -786,7 +866,8 @@ if (window.rcmail) {
                     _draft_uid : id,
                     _mbox : rcmail.env.mailbox
                   });
-                else rcmail.show_message_mobile(id, {});
+                else
+                  rcmail.show_message_mobile(id, {});
               }
               else {
                 if (!this.selection.length) {
@@ -794,29 +875,34 @@ if (window.rcmail) {
                 }
                 this.highlight_row(id, true);
                 this.multi_selecting = true;
-                
+
                 // Multi-message commands
-                rcmail.enable_command('delete', 'move', 'copy', 'mark', 'reply', 'forward', this.selection.length > 0);
-                
+                rcmail
+                    .enable_command('delete', 'move', 'copy', 'mark', 'reply', 'forward', this.selection.length > 0);
+
                 if (this.selection.length) {
                   $('.jqm-mail-header').hide();
                   $('.jqm-mail-buttons-header').show();
                   if (this.selection.length > 1) {
                     $('.jqm-mail-buttons-header .reply').hide();
                     $('.jqm-mail-buttons-header .forward').hide();
+                    $('.jqm-mail-more-buttons-header .filterlink').hide();
                     $('.jqm-mail-more-buttons-header .reply-all').hide();
                   }
                   else {
                     $('.jqm-mail-buttons-header .reply').show();
                     $('.jqm-mail-buttons-header .forward').show();
+                    $('.jqm-mail-more-buttons-header .filterlink').show();
                     $('.jqm-mail-more-buttons-header .reply-all').show();
                   }
                 }
                 else {
                   $('.jqm-mail-header').show();
                   $('.jqm-mail-buttons-header').hide();
-                  $('.jqm-mail-buttons-showmore').addClass('ui-icon-caret-down');
-                  $('.jqm-mail-buttons-showmore').removeClass('ui-icon-caret-up');
+                  $('.jqm-mail-buttons-showmore')
+                      .addClass('ui-icon-caret-down');
+                  $('.jqm-mail-buttons-showmore')
+                      .removeClass('ui-icon-caret-up');
                   $('.jqm-mail-more-buttons-header').hide();
                 }
               }
@@ -1013,6 +1099,25 @@ rcube_webmail.prototype.load_contact_mobile = function(cid, action, framed) {
   }
 
   return true;
+};
+
+// Managesieve add rule
+rcube_webmail.prototype.managesieve_add = function() {
+  alert('managesieve_add');
+  this.load_managesieveframe();
+  this.filters_list.clear_selection();
+};
+
+// load filter frame
+rcube_webmail.prototype.load_managesieveframe = function(id) {
+  var has_id = typeof (id) != 'undefined' && id != null;
+  this
+      .enable_command('plugin.managesieve-act', 'plugin.managesieve-del', has_id);
+  var msgid = this.set_busy(true, 'loading');
+
+  $.mobile.pageContainer.pagecontainer("change", this.env.comm_path
+      + '&_action=plugin.managesieve-action&_framed=1'
+      + (has_id ? '&_fid=' + id : '') + '&_unlock=' + msgid, {});
 };
 
 function show_uploadform() {

@@ -254,6 +254,14 @@ $(document).on("pagecreate", ".jqm-message", function() {
 
     });
     $('.zipdownload').hide();
+    $('#messagecontent .rightcol').hide();
+    $('#messagebody img').each(function() {
+      if ($(this).attr('src') == 'program/resources/blocked.gif') {
+        $('#remote-objects-message').show();
+        rcmail.enable_command('load-images', 'always-load', true);
+        return;
+      }
+    });
   }
 });
 
@@ -606,7 +614,7 @@ if (window.rcmail) {
           });
           $('#bounce_button_mobile').click(function() {
             $('#buttons-right-panel').panel("close");
-          });
+          });          
         }
         else if (rcmail.env.task == 'addressbook'
             && (!rcmail.env.action || rcmail.env.action == "")) {

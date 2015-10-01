@@ -184,7 +184,7 @@ class mobile extends rcube_plugin {
           }
         }
         // Remove specials chars
-        $from = str_replace([' ','~','"',"'",'!','>'], '', $from);
+        $from = str_replace(array(' ','~','"',"'",'!','>'), '', $from);
         $from = strtoupper($from);
         $message->mobile_text = substr($from, 0, 3);
         $message->mobile_class = $this->get_mobile_class($message->mobile_text);
@@ -252,9 +252,9 @@ class mobile extends rcube_plugin {
    * @param string $text
    */
   private function get_mobile_class($text) {
-    $mobile_classes = ['green','blue','yellow','grey','red','orange','brown','purple'];
+    $mobile_classes = array('green','blue','yellow','grey','red','orange','brown','purple');
     if (! isset(self::$current_classes))
-      self::$current_classes = [];
+      self::$current_classes = array();
     $class = "grey";
     if (isset(self::$current_classes[$text])) {
       $class = self::$current_classes[$text];

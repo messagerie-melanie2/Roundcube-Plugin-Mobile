@@ -141,6 +141,18 @@ $(document)
               rcm_tb_label_flag_msgs([ -1, ], val);
             });
       }
+      
+      if (!$('#attachment-list li').length) {
+        $('div.rightcol').hide();
+        $('div.leftcol').css('margin-right', '0');
+      }
+      $('#messagebody img').each(function() {
+        if ($(this).attr('src') == 'program/resources/blocked.gif') {
+          $('#remote-objects-message').show();
+          rcmail.enable_command('load-images', 'always-load', true);
+          return;
+        }
+      });
 
       var message_commands = [ 'show', 'reply', 'reply-all', 'reply-list',
           'move', 'copy', 'delete', 'open', 'mark', 'edit', 'viewsource',
@@ -253,15 +265,7 @@ $(document).on("pagecreate", ".jqm-message", function() {
       $(this).attr('onlick', '');
 
     });
-    $('.zipdownload').hide();
-    $('#messagecontent .rightcol').hide();
-    $('#messagebody img').each(function() {
-      if ($(this).attr('src') == 'program/resources/blocked.gif') {
-        $('#remote-objects-message').show();
-        rcmail.enable_command('load-images', 'always-load', true);
-        return;
-      }
-    });
+    $('.zipdownload').hide();    
   }
 });
 

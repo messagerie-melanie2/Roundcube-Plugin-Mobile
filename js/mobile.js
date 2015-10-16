@@ -325,6 +325,11 @@ $(document)
       }
     });
 
+$(document)
+  .on("pageshow", ".jqm-plugin", function() {
+     $('.ui-button-disabled').removeClass('ui-button-disabled').removeClass('ui-state-disabled');
+  });
+
 $(document).on("pageloadfailed", function(event, data) {
   event.preventDefault();
 });

@@ -27,8 +27,8 @@
 $labels = array();
 $labels['mobile'] = 'Vue mobile';
 $labels['desktop'] = 'Vue bureau';
-$labels['pull_to_refresh'] = 'Tirer pour rafraichir';
-$labels['release_to_refresh'] = 'Lacher pour rafraichir';
+$labels['pull_to_refresh'] = 'Tirer pour rafraîchir';
+$labels['release_to_refresh'] = 'Lacher pour rafraîchir';
 $labels['slide to delete message'] = 'Glisser pour supprimer le message';
 $labels['release to delete message'] = 'Relacher pour supprimer le message';
 $labels['slide to mark as read'] = 'Glisser pour marquer comme lu';

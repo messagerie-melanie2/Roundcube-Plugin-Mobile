@@ -97,10 +97,10 @@ class mobile extends rcube_plugin {
         $this->rc->output->set_env('skin', $skin);
         $this->rc->output->set_skin($skin);
       }
-    }
 
-    // Set env ismobile
-    $this->rc->output->set_env('ismobile', $this->isMobile());
+      // Set env ismobile
+      $this->rc->output->set_env('ismobile', $this->isMobile());
+    }
 
     if ($this->isMobile()) {
       if (in_array($this->rc->task, $this->rc->config->get("mobile_tasks"))) {

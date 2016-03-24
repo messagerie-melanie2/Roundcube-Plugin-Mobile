@@ -1,0 +1,31 @@
+{
+    "name": "melanie2/mobile",
+    "type": "roundcube-plugin",
+    "description": "Mobile Plugin and Skin for Roundcube (needs melanie2_mobile skin)",
+    "keywords": ["mobile","skin"],
+    "homepage": "https://github.com/messagerie-melanie2/Roundcube-Plugin-Mobile",
+    "license": "GPL-3.0+",
+    "authors": [
+        {
+            "name": "Thomas Payen",
+            "homepage": "https://github.com/tpayen",
+            "role": "Developer"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://plugins.roundcube.net"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "roundcube/plugin-installer": ">=0.1.6"
+    },
+    "extra": {
+        "roundcube": {
+            "min-version": "1.1.0",
+            "max-version": "1.1.4"
+        }
+    }
+}

@@ -2,7 +2,7 @@
     "name": "melanie2/mobile",
     "type": "roundcube-plugin",
     "description": "Mobile Plugin and Skin for Roundcube (needs melanie2_mobile skin)",
-    "keywords": ["mobile","skin"],
+    "keywords": ["mobile","skin","responsive","design"],
     "homepage": "https://github.com/messagerie-melanie2/Roundcube-Plugin-Mobile",
     "license": "GPL-3.0+",
     "authors": [

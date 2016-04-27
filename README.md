@@ -38,4 +38,4 @@ For an installation with plugins manager you can follow the Roundcube Team's how
 Attention
 ---------
 
-You should only activate "mobile" plugin in config file, not the "jquery_mobile" plugin or you will have displays trouble in desktop view. jquery_mobile plugin is automaticaly activated by the mobile plugin when needed.
+You should only activate "mobile" plugin in config file, not the "jquery_mobile" plugin or you will have displays trouble in desktop view. jquery_mobile plugin is automatically activated by the mobile plugin when needed.

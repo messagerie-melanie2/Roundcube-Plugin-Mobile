@@ -103,6 +103,10 @@ class mobile extends rcube_plugin {
     }
 
     if ($this->isMobile()) {
+      $this->require_plugin('jquery_mobile');
+      $this->jqm = jquery_mobile::get_instance();
+      $this->jqm->include_files();
+
       if (in_array($this->rc->task, $this->rc->config->get("mobile_tasks"))) {
         // Include mobile.js script
         $this->include_script('js/mobile.js');

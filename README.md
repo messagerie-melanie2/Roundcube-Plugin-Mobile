@@ -1,7 +1,7 @@
 mobile
 ======
 
-Mobile Plugin for Roundcube 1.1.5
+Mobile Plugin for Roundcube 1.2.1
 
 Presentation
 ------------

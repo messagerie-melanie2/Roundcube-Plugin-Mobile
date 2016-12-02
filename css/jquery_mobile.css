@@ -32,6 +32,15 @@ body.ui-mobile-viewport, div.ui-mobile-viewport {
 	border: none;
 }
 
+.ui-dialog .ui-dialog-content {
+    background: #fafafa !important;
+    min-height: 50px !important;
+}
+
+.ui-front {
+    z-index: 1000 !important;
+}
+
 #calendarslist .ui-checkbox {
 	margin: 5px 225px;
 }

@@ -472,6 +472,10 @@ if (window.rcmail) {
           evt.stopPropagation();
           evt.preventDefault();
         });
+        $('#messagessearchfilter').click(function(evt) {
+          evt.stopPropagation();
+          evt.preventDefault();
+        });
         // Redirection automatique après la création d'un contact
         // Problème lié au fait qu'en skin mobile on n'affiche pas le contact et
         // la liste en même temps

@@ -103,7 +103,7 @@ class mobile extends rcube_plugin {
     }
 
     if ($this->isMobile()) {
-      if (in_array($this->rc->task, $this->rc->config->get("mobile_tasks"))) {
+      if (in_array($this->rc->task, $this->rc->config->get("mobile_tasks", array('mail', 'addressbook', 'settings')))) {
         // Include mobile.js script
         $this->include_script('js/mobile.js');
         $this->include_script('js/gesture.js');
@@ -135,7 +135,19 @@ class mobile extends rcube_plugin {
         $_SESSION['sort_order'] = 'DESC';
         $_SESSION['page'] = 1;
 
-        if ($this->rc->task == 'addressbook') {
+        // Is enigma enable ?
+        $this->rc->output->set_env('isenigma', in_array('enigma', $this->rc->plugins->active_plugins));
+
+        if ($this->rc->task == 'mail' && empty($this->rc->action)) {
+          // Add support for enigma
+          if ($this->rc->output->get_env('isenigma')) {
+            $this->rc->plugins->get_plugin('enigma')->load_ui();
+            $this->rc->plugins->get_plugin('enigma')->ui->init();
+            $this->rc->plugins->get_plugin('enigma')->ui->add_css();
+            $this->rc->plugins->get_plugin('enigma')->ui->add_js();
+          }
+        }
+        elseif ($this->rc->task == 'addressbook') {
           // add some labels to client
           $this->rc->output->add_label('deletecontactconfirm', 'copyingcontact', 'movingcontact', 'contactdeleting');
 

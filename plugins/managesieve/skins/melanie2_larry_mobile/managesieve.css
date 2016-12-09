@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";
+
+#filterslist {
+  width: 100%;
+  color: #333;
+  text-shadow: 0px 1px 0px #F3F3F3;
+  overflow: auto;
+}
+
+#filterslist td {
+  border-bottom: 1px solid #DDD;
+  padding: 20px 0px 20px;
+}
+
+#filterslist tr:hover {
+  background-color:#ededed;
+  cursor: pointer;
+}
+
+#filterslist tr.selected {
+  background-color: #ededed;
+}

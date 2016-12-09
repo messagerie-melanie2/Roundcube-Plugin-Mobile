@@ -1,0 +1,53 @@
+<roundcube:object name="doctype" value="html5" />
+<html>
+<head>
+<title><roundcube:object name="pagetitle" /></title>
+<roundcube:include file="/includes/links.html" />
+</head>
+<body>
+<div data-role="page" class="jqm-filters" data-theme="f" id="page_filters_list">
+  <div data-role="header" data-position="fixed" data-theme="f" class="jqm-filters-header" data-tap-toggle="false">
+    <div data-role="controlgroup" data-type="horizontal" class="jqm-filters-leftpanel-link ui-mini ui-btn-left">
+      <a href="#filters-left-panel" class="ui-link ui-btn ui-icon-bars ui-btn-icon-notext" data-rel="open">Groups</a>      
+    </div>
+    <h1><roundcube:label name="managesieve.filters" /></h1>
+    <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
+      <!-- <roundcube:button command="plugin.managesieve-add" type="link" title="managesieve.filteradd" class="listbutton add ui-link ui-btn ui-icon-plus ui-btn-icon-notext" innerClass="inner" content="+" /> -->
+      <a href="./?_task=settings&_action=plugin.managesieve-action&_framed=1" data-ajax="false" class="ui-btn ui-link ui-icon-plus ui-btn-icon-notext">Add</a>
+      <a href="#apps-right-panel" class="jqm-apps-rightpanel-link ui-link ui-btn ui-icon-grid ui-btn-icon-notext" data-rel="open">Apps</a>
+    </div>
+  </div>
+  
+  <div id="filters-left-panel" data-theme="c" data-role="panel" data-position="left" data-display="push" data-position-fixed="true" class="jqm-filters-left-panel">
+    <div class="ui-grid-solo">
+      <div class="ui-block-a">
+        <div id="userphoto"><roundcube:object name="userphoto" /></div>
+      </div>
+    </div>
+    <div class="ui-grid-solo">
+        <div class="ui-block-a"><roundcube:object name="username" /></div>
+    </div>
+    <!-- PAMELA Ajout d'un conteneur pour le nom de la boite -->
+    <roundcube:container name="folderlistheader_mobile"
+      id="folderlistheader_mobile" />
+    <br>
+    <div id="settingslist_mobile" data-theme="h" data-role="listview">
+      <ul class="listing iconized">
+        <roundcube:object name="settingstabs" class="listitem" tagname="li" />
+      </ul>
+      <roundcube:container name="tabs" id="settings-tabs" />
+    </div>    
+  </div>
+  
+  <roundcube:include file="/includes/rightpanel.html" />
+  
+  <div role="main" class="ui-content jqm-content">
+    <roundcube:object name="filterslist" id="filterslist" class="listing" summary="managesieve.ariasummaryfilterslist" noheader="true" role="listbox" />
+  </div>
+</div>
+
+<roundcube:include file="/includes/footer.html" />
+
+</body>
+</html>
+

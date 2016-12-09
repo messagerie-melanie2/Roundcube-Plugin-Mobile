@@ -1,0 +1,97 @@
+<roundcube:object name="doctype" value="html5" />
+<html>
+<head>
+<title><roundcube:object name="pagetitle" /></title>
+<roundcube:include file="/includes/links.html" />
+</head>
+<body class="calendarmain noscroll" onload="setTimeout(function() { window.scrollTo(0, 1) }, 100);">
+
+<div data-role="page" class="jqm-calendar" data-theme="f">
+	<div data-role="header" data-position="fixed" data-theme="f" class="jqm-calendar-header" data-tap-toggle="false">
+		<div data-role="controlgroup" data-type="horizontal" class="jqm-calendar-leftpanel-link ui-mini ui-btn-left">
+			<a href="#calendarview-left-panel" class="ui-link ui-btn ui-icon-bars ui-btn-icon-notext" data-rel="open">Menu</a>
+			<a href="#" class="jqm_calendar_previous ui-btn ui-link ui-icon-chevron-circle-left ui-btn-icon-notext">Previous</a>
+		</div>
+		<h1><roundcube:label name="calendar.day" /></h1>
+		
+		<div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
+			<a href="#" class="jqm_calendar_next ui-btn ui-link ui-icon-chevron-circle-right ui-btn-icon-notext">Next</a>
+			<a href="#apps-right-panel" class="jqm-apps-rightpanel-link ui-link ui-btn ui-icon-grid ui-btn-icon-notext" data-rel="open">Apps</a>
+		</div>
+	</div>
+	
+	<div id="calendarview-left-panel" data-theme="c" data-role="panel" data-position="left" data-display="overlay" data-position-fixed="true" class="jqm-calendar-left-panel">
+		<div class="ui-grid-solo">
+      <div class="ui-block-a">
+        <div id="userphoto"><roundcube:object name="userphoto" /></div>
+      </div>
+    </div>
+		<div class="ui-grid-solo">
+				<div class="ui-block-a"><roundcube:object name="username" /></div>
+		</div>
+		<div class="ui-grid-solo">
+			<div class="ui-block-a">
+				<roundcube:button command="addevent" type="link" class="button addevent ui-link ui-btn ui-btn-a ui-alt-icon ui-icon-plus ui-btn-icon-left ui-corner-all" label="calendar.new_event" title="calendar.new_event" />
+			</div>
+		</div>
+		<div id="calendars" class="uibox listbox" style="visibility:hidden">
+			<h2 class="boxtitle"><roundcube:label name="calendar.calendars" /></h2>
+			<div class="scroller withfooter">
+        <roundcube:object name="plugin.calendar_list" data-theme="c" id="calendarslist" class="treelist listing" />
+      </div>
+		</div>
+	</div>
+	
+	<roundcube:include file="/includes/rightpanel.html" />
+	
+	<div role="main" class="ui-content jqm-content">
+		<div id="calendar">
+			<roundcube:object name="plugin.angenda_options" class="boxfooter" id="agendaoptions" />
+		</div>
+	</div>
+	
+	<div data-role="footer" data-position="fixed" data-theme="f" class="jqm-calendar-footer" >
+		<div class="ui-bar">
+			<div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-left">
+		        <a href="#" onclick="$('#calendar').fullCalendar( 'changeView', 'agendaDay' );" class="ui-btn ui-icon-day ui-btn-icon-notext"><roundcube:label name="calendar.day" /></a>
+		        <a href="#" id="agendaweekbutton" onclick="$('#calendar').fullCalendar( 'changeView', 'agendaWeek' );" class="ui-btn ui-icon-week ui-btn-icon-notext"><roundcube:label name="calendar.week" /></a>
+		        <a href="#" onclick="$('#calendar').fullCalendar( 'changeView', 'month' );" class="ui-btn ui-icon-month ui-btn-icon-notext"><roundcube:label name="calendar.month" /></a>
+		        <a href="#" onclick="$('#calendar').fullCalendar( 'changeView', 'table' );" class="ui-btn ui-icon-agenda ui-btn-icon-notext"><roundcube:label name="calendar.agenda" /></a>		        
+		    </div>
+		    <span class="ui-title"></span>
+		    <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
+		    	<a href="#quicksearchpopup" data-rel="popup"  class="ui-btn ui-icon-search ui-btn-icon-notext">Search</a>
+		    	<a href="#" onclick="$('#calendar').fullCalendar('today');" class="ui-btn ui-icon-clock ui-btn-icon-notext"><roundcube:label name="calendar.today" /></a>
+		    	<roundcube:button command="addevent" type="link" class="button addevent ui-link ui-btn ui-icon-plus ui-btn-icon-left ui-btn-icon-notext" label="calendar.new_event" title="calendar.new_event" />
+		    </div>
+	    </div>
+	</div>
+	
+	<div data-role="popup" id="quicksearchpopup" class="ui-content">
+	    <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+		<div id="quicksearchbar">
+			<roundcube:object name="plugin.searchform" id="quicksearchbox" />
+			<a id="searchmenulink" class="iconbutton searchoptions" > </a>
+			<roundcube:button command="reset-search" id="searchreset" class="iconbutton reset" title="resetsearch" content=" " />
+		</div>
+	</div>
+	
+	<div id="calendaroptionsmenu" class="ui-content" data-role="popup">
+		<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+		<ul class="" data-role="listview">
+			<li><roundcube:button command="calendar-remove" label="calendar.remove" classAct="" /></li>
+		</ul>
+	</div>
+	
+	<roundcube:include file="/includes/footer.html" />
+	
+	<roundcube:object name="plugin.calendar_css" />
+	
+</div>
+
+<roundcube:include file="/templates/eventedit.html" />
+
+<roundcube:include file="/templates/eventshow.html" />
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<roundcube:object name="doctype" value="html5" />
+<html>
+<head>
+<title><roundcube:object name="pagetitle" /></title>
+<roundcube:include file="/includes/links.html" />
+</head>
+
+<div data-role="page" class="jqm-keys" data-ajax="true" data-theme="f" id="page_keys_list" data-dom-cache="true">
+  <div data-role="header" data-position="fixed" data-theme="f" class="jqm-keys-header" data-tap-toggle="false">
+    <div data-role="controlgroup" data-type="horizontal" class="jqm-keys-leftpanel-link ui-mini ui-btn-left">
+      <a href="#keys-left-panel" class="ui-link ui-btn ui-icon-bars ui-btn-icon-notext" data-rel="open">Groups</a>
+      <a href="#" class="listbutton enigma-key-create ui-link ui-btn ui-icon-plus ui-btn-icon-notext">Add</a>
+    </div>
+    <h1><roundcube:label name="enigma.enigmakeys" /></h1>
+    <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
+      <roundcube:button command="plugin.enigma-key-export" type="link" class="button export disabled ui-disabled ui-link ui-btn ui-icon-arrow-d ui-btn-icon-notext" class="button export ui-link ui-btn ui-icon-arrow-d ui-btn-icon-notext" label="export" title="enigma.exportkeys" />
+      <a href="#apps-right-panel" class="jqm-apps-rightpanel-link ui-link ui-btn ui-icon-grid ui-btn-icon-notext" data-rel="open">Apps</a>
+    </div>
+  </div>
+  <div data-role="footer" data-position="fixed" data-theme="f" class="jqm-keys-footer" data-tap-toggle="false">
+     <roundcube:button command="firstpage" type="link" class="icon firstpage disabled ui-disabled ui-link ui-btn ui-icon-arrow-l ui-btn-icon-notext" classAct="icon firstpage ui-link ui-btn ui-icon-arrow-l ui-btn-icon-notext" title="firstpage" label="first" />
+     <roundcube:button command="previouspage" type="link" class="icon prevpage disabled ui-disabled ui-link ui-btn ui-icon-carat-l ui-btn-icon-notext" classAct="icon prevpage ui-link ui-btn ui-icon-carat-l ui-btn-icon-notext" title="previouspage" label="previous" />
+     <roundcube:button command="nextpage" type="link" class="icon nextpage disabled ui-disabled ui-link ui-btn ui-icon-carat-r ui-btn-icon-notext" classAct="icon nextpage ui-link ui-btn ui-icon-carat-r ui-btn-icon-notext" title="nextpage" label="next" />
+     <roundcube:button command="lastpage" type="link" class="icon lastpage disabled ui-disabled ui-link ui-btn ui-icon-arrow-r ui-btn-icon-notext" classAct="icon lastpage ui-link ui-btn ui-icon-arrow-r ui-btn-icon-notext" title="lastpage" label="last" />
+  </div>
+  
+  <div id="keys-left-panel" data-theme="c" data-role="panel" data-position="left" data-display="push" data-position-fixed="true" class="jqm-keys-left-panel">
+    <div class="ui-grid-solo">
+      <div class="ui-block-a">
+        <div id="userphoto"><roundcube:object name="userphoto" /></div>
+      </div>
+    </div>
+    <div class="ui-grid-solo">
+        <div class="ui-block-a"><roundcube:object name="username" /></div>
+    </div>
+    <br>
+    <div id="settingslist_mobile" data-theme="h" data-role="listview">
+      <ul class="listing iconized">
+        <roundcube:object name="settingstabs" class="listitem" tagname="li" />
+      </ul>
+      <roundcube:container name="tabs" id="settings-tabs" />
+    </div>    
+  </div>
+  
+  <roundcube:include file="/includes/rightpanel.html" />
+  
+  <div role="main" class="ui-content jqm-content">
+    <roundcube:object name="keyslist" id="keys-table" data-theme="a" class="listing" role="listbox" cellspacing="0" noheader="true" />
+  </div>
+  
+</div>
+
+<div id="exportmenu" class="popupmenu" aria-hidden="true">
+    <h3 id="aria-label-exportmenu" class="voice"><roundcube:label name="enigma.arialabelkeyexportoptions" /></h3>
+    <ul id="exportmenu-menu" class="toolbarmenu" role="menu" aria-labelledby="aria-label-exportmenu">
+        <roundcube:button type="link-menuitem" command="plugin.enigma-key-export" label="exportall" prop="sub" class="exportalllink" classAct="exportalllink active" />
+        <roundcube:button type="link-menuitem" command="plugin.enigma-key-export-selected" label="exportsel" prop="sub" class="exportsellink" classAct="exportsellink active" />
+    </ul>
+</div>
+
+<div id="keyoptions" class="popupmenu">
+    <ul class="toolbarmenu">
+        <li><roundcube:button class="deletelink" command="plugin.enigma-key-delete" label="enigma.keyremove" target="_blank" classAct="deletelink active" /></li>
+<!--
+        <li><roundcube:button class="disablelink" command="enigma.key-disable" label="enigma.keydisable" target="_blank" classAct="disablelink active" /></li>
+        <li><roundcube:button class="revokelink" command="enigma.key-revoke" label="enigma.keyrevoke" classAct="revokelink active" /></li>
+        <li class="separator_below"><roundcube:button class="sendlink" command="enigma.key-send" label="enigma.keysend" classAct="sendlink active" /></li>
+        <li><roundcube:button class="chpasslink" command="enigma.key-chpass" label="enigma.keychpass" classAct="chpasslink active" /></li>
+-->
+    </ul>
+</div>
+
+<roundcube:include file="/includes/footer.html" />
+
+</body>
+</html>

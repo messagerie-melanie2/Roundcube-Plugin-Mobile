@@ -1,0 +1,63 @@
+<div data-role="page" data-theme="f" id="eventshowpage">
+	<div data-role="header" data-position="fixed" data-theme="f" data-tap-toggle="false">
+		<a href="#" class="button ui-link ui-btn ui-btn-left ui-icon-back ui-btn-icon-notext" id="event_show_back_button"><roundcube:label name="back"></a>
+		<h1><roundcube:object name="pagetitle" /></h1>
+		<a href="#" class="button ui-link ui-btn ui-btn-right ui-icon-edit ui-btn-icon-notext" id="event_show_edit_button"><roundcube:label name="calendar.edit"></a>
+	</div>
+	
+	<div role="main" class="ui-content">
+		<div id="eventshow" class="ui-page-theme-a">
+			<h1 id="event-title">Event Title</h1>
+			<div class="event-section" id="event-location">Location</div>
+			<div class="event-section" id="event-date">From-To</div>
+			<div class="event-section" id="event-description">
+				<h5 class="label"><roundcube:label name="calendar.description" /></h5>
+				<div class="event-text"></div>
+			</div>
+			<div class="event-section" id="event-url">
+				<h5 class="label"><roundcube:label name="calendar.url" /></h5>
+				<div class="event-text"></div>
+			</div>
+			<div class="event-section" id="event-repeat">
+				<h5 class="label"><roundcube:label name="calendar.repeat" /></h5>
+				<div class="event-text"></div>
+			</div>
+			<div class="event-section" id="event-alarm">
+				<h5 class="label"><roundcube:label name="calendar.alarms" /></h5>
+				<div class="event-text"></div>
+			</div>
+			<div class="event-section event-attendees" id="event-attendees">
+				<h5 class="label"><roundcube:label name="calendar.tabattendees" /></h5>
+				<div class="event-text"></div>
+			</div>
+			<div class="event-line" id="event-calendar">
+				<label><roundcube:label name="calendar.calendar" /></label>
+				<span class="event-text">Default</span>
+			</div>
+			<div class="event-line" id="event-category">
+				<label><roundcube:label name="calendar.category" /></label>
+				<span class="event-text"></span>
+			</div>
+			<div class="event-line" id="event-free-busy">
+				<label><roundcube:label name="calendar.freebusy" /></label>
+				<span class="event-text"></span>
+			</div>
+			<div class="event-line" id="event-priority">
+				<label><roundcube:label name="calendar.priority" /></label>
+				<span class="event-text"></span>
+			</div>
+			<div class="event-line" id="event-sensitivity">
+				<label><roundcube:label name="calendar.sensitivity" /></label>
+				<span class="event-text"></span>
+			</div>
+			<div class="event-section" id="event-attachments">
+				<label><roundcube:label name="attachments" /></label>
+				<div class="event-text"></div>
+			</div>
+		
+			<roundcube:object name="plugin.event_rsvp_buttons" id="event-rsvp" style="display:none" />				
+		</div>
+		
+		<a href="#" class="button ui-link ui-btn ui-btn-h ui-icon-trash-o ui-btn-icon-left ui-corner-all" id="event_show_remove_button"><roundcube:label name="calendar.removeeventconfirm"></a>
+	</div>
+</div>

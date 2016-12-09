@@ -330,6 +330,11 @@ $(document)
      $('.ui-button-disabled').removeClass('ui-button-disabled').removeClass('ui-state-disabled');
   });
 
+$(document)
+  .on("pageshow", ".jqm-enigma-key-import", function() {
+     $('.ui-button-disabled').removeClass('ui-button-disabled').removeClass('ui-state-disabled');
+  });
+
 $(document).on("pageloadfailed", function(event, data) {
   event.preventDefault();
 });
@@ -593,7 +598,10 @@ if (window.rcmail) {
               'insert-response', 'save-response' ];
 
           if (rcmail.env.drafts_mailbox)
-            rcmail.env.compose_commands.push('savedraft')
+            rcmail.env.compose_commands.push('savedraft');
+            
+          if (rcmail.env.isenigma)
+            rcmail.env.compose_commands.push('menu-open');
 
           rcmail
               .enable_command(rcmail.env.compose_commands, 'identities', 'responses', true);
@@ -768,6 +776,26 @@ if (window.rcmail) {
           $(document).on('click', 'table#filterslist tr', function() {
             var id = rcmail.filters_list.get_row_uid($(this).get(0));
             window.location.href =  rcmail.env.comm_path + '&_action=plugin.managesieve-action&_framed=1&_fid=' + id;
+          });
+        }
+        else if (rcmail.env.task == 'settings'
+            && rcmail.env.action == 'plugin.enigmakeys') {
+          $(document).on('tap', 'table#keys-table td', function() {
+            var id = rcmail.keys_list.get_row_uid($(this).parent().get(0));
+            window.location.href =  rcmail.env.comm_path + '&_action=plugin.enigmakeys&_a=info&_id=' + id;
+          });
+          $(document).on('click', '#page_keys_list a.enigma-key-import', function() {
+            window.location.href =  rcmail.env.comm_path + '&_action=plugin.enigmakeys&_a=import';
+          });
+          $(document).on('click', '#page_keys_list a.enigma-key-create', function() {
+            window.location.href =  rcmail.env.comm_path + '&_action=plugin.enigmakeys&_a=create';
+          });
+          $(document).on('click', '.jqm-enigma-key-create a.enigma-key-delete', function() {
+            var lock = rcmail.display_message(rcmail.get_label('enigma.keyremoving'), 'loading'),
+            post = {_a: 'delete', _keys: [ window.location.href.split('&_id=').pop() ]};
+
+            // send request to server
+            rcmail.http_post('plugin.enigmakeys', post, lock);
           });
         }
         // message list

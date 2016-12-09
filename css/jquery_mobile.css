@@ -285,6 +285,7 @@ input.button.mainaction {
 	.jqm-folders .jqm-folders-left-panel.ui-panel-closed,
 	.jqm-settings .jqm-settings-left-panel.ui-panel-closed,
 	.jqm-identities .jqm-identities-left-panel.ui-panel-closed,
+	.jqm-keys .jqm-keys-left-panel.ui-panel-closed,
 	.jqm-filters .jqm-filters-left-panel.ui-panel-closed,
 	.jqm-mail .jqm-mail-left-panel.ui-panel-closed {	
 		width: 17em;
@@ -300,6 +301,7 @@ input.button.mainaction {
 	.jqm-folders .ui-panel-animate.ui-panel-position-left.ui-panel-display-push,
   .jqm-settings .ui-panel-animate.ui-panel-position-left.ui-panel-display-push,
   .jqm-identities .ui-panel-animate.ui-panel-position-left.ui-panel-display-push,
+  .jqm-keys .ui-panel-animate.ui-panel-position-left.ui-panel-display-push,
   .jqm-filters .ui-panel-animate.ui-panel-position-left.ui-panel-display-push,
 	.jqm-mail .ui-panel-animate.ui-panel-position-left.ui-panel-display-push {
 		left: 17em;
@@ -312,6 +314,7 @@ input.button.mainaction {
 	.jqm-folders .ui-panel-wrapper,
   .jqm-settings .ui-panel-wrapper,
   .jqm-identities .ui-panel-wrapper,
+  .jqm-keys .ui-panel-wrapper,
   .jqm-filters .ui-panel-wrapper,
 	.jqm-mail .ui-panel-wrapper {
 		margin-left:17em; 
@@ -321,6 +324,7 @@ input.button.mainaction {
 	.jqm-folders .jqm-folders-header .jqm-folders-leftpanel-link,
   .jqm-settings .jqm-settings-header .jqm-settings-leftpanel-link,
   .jqm-identities .jqm-identities-header .jqm-identities-leftpanel-link,
+  .jqm-keys .jqm-keys-header .jqm-keys-leftpanel-link,
   .jqm-filters .jqm-filters-header .jqm-filters-leftpanel-link,
 	.jqm-mail .jqm-mail-header .jqm-mail-leftpanel-link {
 		display: none;

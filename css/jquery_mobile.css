@@ -67,6 +67,7 @@ body.ui-mobile-viewport, div.ui-mobile-viewport {
 #userphoto img {
   height: 50px;
   width: 50px;
+  border-radius: 25px;
 }
 
 div.rulerow table {

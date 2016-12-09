@@ -1,3 +1,6 @@
 <?php
 // List of tasks show in mobile skin
 $rcmail_config['mobile_tasks'] = array('mail', 'addressbook', 'settings');
+
+// Show contacts photos in messages list
+$rcmail_config['show_contacts_photos'] = true;

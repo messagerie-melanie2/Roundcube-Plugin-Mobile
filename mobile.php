@@ -125,7 +125,7 @@ class mobile extends rcube_plugin {
         $this->add_hook('folder_delete', array($this,'folder_delete'));
 
         // User photo
-        // $this->add_hook('template_object_userphoto', array($this,'userphoto'));
+        $this->add_hook('template_object_userphoto', array($this,'userphoto'));
 
         // Config hook
         $this->add_hook('config_get', array($this,'config_get'));
@@ -137,6 +137,8 @@ class mobile extends rcube_plugin {
 
         // Is enigma enable ?
         $this->rc->output->set_env('isenigma', in_array('enigma', $this->rc->plugins->active_plugins));
+        $this->rc->output->set_env('contactphotourl', $this->rc->url(array('task' => 'addressbook', 'action' => 'photo')));
+        $this->rc->output->set_env('showcontactsphotos', $this->rc->config->get('show_contacts_photos', true));
 
         if ($this->rc->task == 'mail' && empty($this->rc->action)) {
           // Add support for enigma
@@ -329,7 +331,7 @@ class mobile extends rcube_plugin {
    * @return string
    */
   function userphoto($args) {
-    $photo_img = $this->rc->url(array('_task' => 'addressbook','_action' => 'photo','_email' => $this->current_username()));
+    $photo_img = $this->rc->url(array('_task' => 'addressbook','_action' => 'photo','_email' => $this->rc->output->current_username()));
 
     $args['content'] = html::img(array('src' => $photo_img));
 

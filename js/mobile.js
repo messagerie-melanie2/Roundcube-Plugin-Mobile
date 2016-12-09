@@ -140,7 +140,7 @@ $(document)
                 idx, val) {
               rcm_tb_label_flag_msgs([ -1, ], val);
             });
-      }
+      }          
       
       if (!$('#attachment-list li').length) {
         $('div.rightcol').hide();
@@ -426,9 +426,28 @@ $(document).ready(function() {
  * @param row
  */
 function add_mobile_class(uid, row) {
+  var span = $(document.createElement('span'));  
   var rowobj = $(row.obj);
-  rowobj.find('span.mobile_text').addClass(rowobj.find('span.mobile_class')
+  var span_mobile = rowobj.find('span.mobile_text');
+  span_mobile.addClass(rowobj.find('span.mobile_class')
       .text());
+  span.text(span_mobile.text());
+  span_mobile.html('');
+  span_mobile.append(span);
+  if (rcmail.env.showcontactsphotos) {
+    var img = $(document.createElement('img'));
+    img
+      .hide()
+      .on('load', function() {
+        $(this).show();
+        span_mobile.find('span').hide();
+      })
+      .error(function() {
+        $(this).hide();
+      })
+      .attr('src', rcmail.env.contactphotourl + '&_error=1&_email=' + rowobj.find('span.rcmContactAddress').attr('title'));
+    span_mobile.append(img);
+  }
 }
 
 $(document).bind("mobileinit", function() {
@@ -468,7 +487,7 @@ if (window.rcmail) {
         // Initialisation de la liste des pages chargées
         window.page_loading = {};
         window.current_page_scroll = 1;
-
+                
         // Choix de la balp dans le champ select
         $('#select_balp_mobile').change(function() {
           window.location = $("#select_balp_mobile option:selected").val();
@@ -579,15 +598,15 @@ if (window.rcmail) {
                   load_next_page();
                 }
               });
-          // Réinitialise les données une fois que la liste est rafraichie
+          // Reinit the data with refreshing the list is over
           rcmail.message_list.addEventListener('clear', function(evt) {
             window.page_loading = {};
             rcmail.env.current_page = 1;
             window.current_page_scroll = 2;
           });
         }
-        else if (rcmail.env.task == 'mail' && rcmail.env.action == 'compose') {
-          // Fermer le pop up d'upload au click
+        else if (rcmail.env.task == 'mail' && rcmail.env.action == 'compose') {          
+          // Close upload popup on click
           $('.button_upload_photo').click(function() {
             $("#upload-popup").popup('close');
           });
@@ -886,7 +905,7 @@ if (window.rcmail) {
              */
             rcube_list_widget.prototype.click_row = function(e, id) {
               // don't do anything (another action processed before)
-              if (!this.is_event_target(e)) return true;
+              //if (!this.is_event_target(e)) return true;
 
               var m = rcube_event.get_mouse_pos(e), pos = $('#mailview-left-panel')
                   .position();

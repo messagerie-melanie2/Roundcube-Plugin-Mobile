@@ -35,3 +35,6 @@ $labels['slide to mark as read'] = 'Glisser pour marquer comme lu';
 $labels['release to mark as read'] = 'Relacher pour marquer comme lu';
 $labels['slide to mark as unread'] = 'Glisser pour marquer comme non lu';
 $labels['release to mark as unread'] = 'Relacher pour marquer comme non lu';
+
+// Enigma
+$messages['addenigmapass'] = 'Cliquez ici pour saisir le mot de passe.';

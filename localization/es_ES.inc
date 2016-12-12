@@ -36,3 +36,6 @@ $labels['slide to mark as read'] = 'Deslizar para marcar como leído';
 $labels['release to mark as read'] = 'Soltar para marcar como leído';
 $labels['slide to mark as unread'] = 'Deslizar para marcar como no leído';
 $labels['release to mark as unread'] = 'Soltar para marcar como no leído';
+
+// Enigma
+$messages['addenigmapass'] = 'Haga clic para agregar la clave de contraseña.';

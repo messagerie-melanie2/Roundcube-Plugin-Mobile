@@ -35,3 +35,6 @@ $labels['slide to mark as read'] = 'Slide to mark as read';
 $labels['release to mark as read'] = 'Release to mark as read';
 $labels['slide to mark as unread'] = 'Slide to mark as unread';
 $labels['release to mark as unread'] = 'Release to mark as unread';
+
+// Enigma
+$messages['addenigmapass'] = 'Click to add the key password.';

@@ -153,6 +153,20 @@ $(document)
           return;
         }
       });
+      
+      if (rcmail.env.isenigma) {
+        if (('#messagebody div.enigmaerror').length) {
+          $('#messagebody div.enigmaerror').html($('#messagebody div.enigmaerror').html() + ' ' + rcmail.gettext('mobile.addenigmapass'));
+          $('#messagebody div.enigmaerror').click(function() {
+            if (rcmail.env.enigma_password_request) {
+              rcmail.enigma_password_request(rcmail.env.enigma_password_request);
+            }
+            else {
+              window.location.reload();
+            }
+          });
+        }  
+      }      
 
       var message_commands = [ 'show', 'reply', 'reply-all', 'reply-list',
           'move', 'copy', 'delete', 'open', 'mark', 'edit', 'viewsource',
@@ -484,6 +498,83 @@ function load_next_page() {
 if (window.rcmail) {
   rcmail
       .addEventListener('init', function(evt) {
+        
+        if (rcmail.env.isenigma) {
+          rcmail.enigma_password_request = function(data)
+          {
+              if (!data || !data.keyid) {
+                  return;
+              }
+              
+              var ref = this,
+                  msg = this.get_label('enigma.enterkeypass'),
+                  popup = $('<div>').attr({'data-role': 'popup', id: 'passwordrequestpopup', 'data-theme': 'f', 'class': 'ui-corner-all prompt'}),
+                  form = $('<form>').appendTo(popup),
+                  div = $('<div>').attr({style: 'padding:10px 20px;'}).appendTo(form),
+                  h3 = $('<h3>').appendTo(div),        
+                  input = $('<input>').attr({name: 'keypassword', id: 'enigmakeypassword', type: 'password'}).appendTo(div),
+                  submit = $('<button>').attr({type: 'submit', 'data-theme': 'f', 'data-icon': 'check'}).text(this.get_label('save')).appendTo(div);
+              
+              data.key = data.keyid;
+              if (data.keyid.length > 8)
+                  data.keyid = data.keyid.substr(data.keyid.length - 8);
+
+              $.each(['keyid', 'user'], function() {
+                  msg = msg.replace('$' + this, data[this]);
+              });
+
+              h3.text(msg);
+              
+              form.submit(function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+
+                data.password = $('#enigmakeypassword').val();
+
+                if (!data.password) {
+                  $('#enigmakeypassword').focus();
+                    return;
+                }
+
+                ref.enigma_password_submit(data);
+              });
+
+              setTimeout(function() {
+                popup.popup();
+                popup.trigger('create');
+                popup.popup('open');
+                input.focus();
+              }, 200);
+          };
+          
+          // submit entered password
+          rcmail.enigma_password_submit = function(data)
+          {
+              if (this.env.action == 'compose' && !data['compose-init']) {
+                  return this.enigma_password_compose_submit(data);
+              }
+
+              var form = $('<form>').attr({method: 'post', action: data.action || location.href, style: 'display:none'})
+                  .append($('<input>').attr({type: 'hidden', name: '_keyid', value: data.key}))
+                  .append($('<input>').attr({type: 'hidden', name: '_passwd', value: data.password}))
+                  .append($('<input>').attr({type: 'hidden', name: '_token', value: this.env.request_token}));
+
+              // Additional form fields for request parameters
+              $.each(data, function(i, v) {
+                if (i.indexOf('input') == 0)
+                  form.append($('<input>').attr({type: 'hidden', name: i.substring(5), value: v}))
+              });
+
+              if (data.iframe) {
+                var name = 'enigma_frame_' + (new Date()).getTime(),
+                  frame = $('<iframe>').attr({style: 'display:none', name: name}).appendTo(document.body);
+                form.attr('target', name);
+              }
+
+              form.appendTo(document.body).submit();
+          }
+        }
+        
         // Initialisation de la liste des pages chargées
         window.page_loading = {};
         window.current_page_scroll = 1;
@@ -585,7 +676,7 @@ if (window.rcmail) {
           // Récupérer le focus sur le search box
           $('#quicksearchbox').click(function() {
             $('#quicksearchbox').focus();
-          });
+          });          
 
           $(document)
               .scroll(function() {

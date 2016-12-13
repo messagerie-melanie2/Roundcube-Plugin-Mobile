@@ -115,6 +115,11 @@ class mobile extends rcube_plugin {
         $this->include_stylesheet('css/melanie2_larry_mobile.min.css');
         $this->include_stylesheet('css/jquery_mobile.css');
 
+        // Add custom css
+        if ($this->rc->config->get('custom_css', false)) {
+          $this->include_stylesheet('css/' . $this->rc->config->get('custom_css'));
+        }
+
         // Generate message list
         $this->add_hook('template_object_messages', array($this,'object_messages'));
         $this->add_hook('messages_list', array($this,'messages_list'));

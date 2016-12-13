@@ -4,3 +4,6 @@ $rcmail_config['mobile_tasks'] = array('mail', 'addressbook', 'settings');
 
 // Show contacts photos in messages list
 $rcmail_config['show_contacts_photos'] = true;
+
+// Use custom css
+$rcmail_config['custom_css'] = 'custom.css';

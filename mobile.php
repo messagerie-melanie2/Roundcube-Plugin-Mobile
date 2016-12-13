@@ -336,7 +336,7 @@ class mobile extends rcube_plugin {
    * @return string
    */
   function userphoto($args) {
-    $photo_img = $this->rc->url(array('_task' => 'addressbook','_action' => 'photo','_email' => $this->rc->output->current_username()));
+    $photo_img = $this->rc->url(array('_task' => 'addressbook','_action' => 'photo','_email' => $this->rc->output->current_username(array())));
 
     $args['content'] = html::img(array('src' => $photo_img));
 

@@ -1,7 +1,7 @@
 mobile
 ======
 
-Mobile Plugin for Roundcube 1.2.3
+Mobile Plugin for Roundcube 1.3.4
 
 Presentation
 ------------
@@ -14,7 +14,7 @@ Its needs the melanie2_larry_mobile skin and the jquery_mobile plugin
 Version
 -------
 
-Mobile Melanie2 Skin 0.4.6
+Mobile Melanie2 Skin 0.4.7
 
 
 Author
@@ -26,9 +26,9 @@ PNE Annuaire et Messagerie/MEDDE
 Installation
 ------------
 
-Works on Roundcube 1.2.3
+Works on Roundcube 1.3.4
 
-You need to add melanie2_larry_mobile skin (https://github.com/messagerie-melanie2/roundcube_skin_melanie2_larry_mobile) in the Roundcube skins folder, and jquery_mobile plugin (https://github.com/messagerie-melanie2/roundcube_jquery_mobile) in plugins folder
+You need to add melanie2_larry_mobile v0.4.7 skin (https://github.com/messagerie-melanie2/roundcube_skin_melanie2_larry_mobile) in the Roundcube skins folder, and jquery_mobile v1.1 plugin (https://github.com/messagerie-melanie2/roundcube_jquery_mobile) in plugins folder
 
 Rename the folder to "mobile" and add it to your Roundcube instance/plugins directory. Then edit Roundcube config.inc.php file and add "mobile" to the $config['plugins'] array.
 

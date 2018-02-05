@@ -325,6 +325,9 @@ class mobile extends rcube_plugin {
       case 'date_format' :
         $args['result'] = 'Y-m-d';
         break;
+      case 'layout':
+        $args['result'] = 'mobile';
+        break;
     }
     return $args;
   }

@@ -39,3 +39,15 @@ Attention
 ---------
 
 You should only activate "mobile" plugin in config file, not the "jquery_mobile" plugin or you will have displays trouble in desktop view. jquery_mobile plugin is automatically activated by the mobile plugin when needed.
+
+
+Plugins
+-------
+
+"plugins" directory provides melanie2_larry_mobile skin for supported plugins. Take the melanie2_mobile skin folder and put it in your plugin skins folder. For kolab calendar plugin, you'll have to use this repo : https://github.com/messagerie-melanie2/Roundcube-Plugin-Calendar
+
+
+Issues
+------
+
+Before opening an issue, make sure to use last releases of plugin (https://github.com/messagerie-melanie2/Roundcube-Plugin-Mobile/releases/latest) and skin (https://github.com/messagerie-melanie2/Roundcube-Skin-Melanie2-Larry-Mobile/releases/latest). Thank you.

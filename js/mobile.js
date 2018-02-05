@@ -24,6 +24,8 @@
  * @license GNU GPLv3+
  * 
  */
+ // Fixed for jQuery 3.
+ 
 var page_loading;
 var current_page_scroll;
 var current_uid;
@@ -456,7 +458,7 @@ function add_mobile_class(uid, row) {
         $(this).show();
         span_mobile.find('span').hide();
       })
-      .error(function() {
+      .on( 'error', function() { //JSI
         $(this).hide();
       })
       .attr('src', rcmail.env.contactphotourl + '&_error=1&_email=' + rowobj.find('span.rcmContactAddress').attr('title'));

@@ -122,6 +122,12 @@ input.button.mainaction {
   border: 1px solid #848484;
 }
 
+.ui-controlgroup.ui-mini .ui-btn-icon-notext, 
+.ui-controlgroup .ui-mini.ui-btn-icon-notext {
+  height: auto;
+  padding: .7em 1em;
+}
+
 .ui-page-theme-a .ui-checkbox-on::after {
   background-color: #848484;
 }

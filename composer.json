@@ -5,7 +5,7 @@
     "keywords": ["mobile","skin","responsive","design"],
     "homepage": "https://github.com/messagerie-melanie2/Roundcube-Plugin-Mobile",
     "license": "GPL-3.0+",
-    "version": "0.4.8",
+    "version": "0.4.9",
     "authors": [
         {
             "name": "Thomas Payen",
@@ -22,7 +22,7 @@
     "require": {
         "php": ">=5.3.0",
         "roundcube/plugin-installer": ">=0.1.6",
-        "melanie2/jquery_mobile": ">=1.1"
+        "melanie2/jquery_mobile": ">=1.2"
     },
     "extra": {
         "roundcube": {
